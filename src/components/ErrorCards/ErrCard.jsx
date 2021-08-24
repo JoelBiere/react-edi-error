@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-
 const ErrCard = () => {
     return (
         <Card>
+            
             <DepartmentLabel>
-                Operations
+                department
             </DepartmentLabel>
 
             <Date>
@@ -27,6 +27,9 @@ const ErrCard = () => {
 
     )
 }
+
+
+
 const Card = styled.div`
     display: grid;
     margin: 10px;

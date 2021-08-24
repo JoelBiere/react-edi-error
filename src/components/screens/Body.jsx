@@ -1,37 +1,38 @@
-import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from '../../actions';
-import ErrCard from '../ErrorCards/ErrCard'
-import ErrPane from './ErrPane'
-import ErrPnHeader from '../ErrorCards/ErrPnHeader';
+import React, { useState } from 'react';
+import ErrCard from '../ErrorCards/ErrCard';
+import ErrPane from './ErrPane';
+import { addData } from '../../actions/index'
+import { connect } from 'react-redux'
 
 
-const Body = () => {
+const Body = ({ addData, data }) => {
+    
+    const generateCards = () => {
 
-    const dispatch = useDispatch();
-
+        for(let obj of data) {
+            console.log(obj)
+        }
+        return ''
+    }
     return (
         <React.Fragment>
+            {window.onload = addData}
             <ErrPane>
-                <ErrCard />
-                <ErrCard />
-                <ErrCard />
-                <ErrCard />
-                <ErrCard />
-                <ErrCard />
-
+                {generateCards()}
             </ErrPane>
 
 
-            {/* <Row>
-                        <button onClick={() => dispatch(increment(3))} >+</button>
-                        <button onClick = {() => dispatch(decrement())}>-</button>
-
-                    </Row> */}
 
         </React.Fragment>
     )
 }
 
-export default Body;
+const mapStateToProps = (state) => ({ data: state.data })
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addData: () => dispatch(addData)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Body);
