@@ -1,20 +1,17 @@
-import Header from './components/screens/Header'
-import Body from './components/screens/Body'
 import React from 'react'
+import Body from './components/screens/Body'
+import Header from './components/screens/Header'
+
 
 function App() {
 
   return (
     <React.Fragment>
        <Header />
-      <Body>
-
-        
-      </Body>
-    
-
-    </React.Fragment>
+       <Body />
    
+    </React.Fragment>
+
   );
 }
 

@@ -14,12 +14,15 @@ const Body = () => {
     return (
         <React.Fragment>
             <ErrPane>
-                <ErrPnHeader />
                 <ErrCard />
                 <ErrCard />
                 <ErrCard />
                 <ErrCard />
+                <ErrCard />
+                <ErrCard />
+
             </ErrPane>
+
 
             {/* <Row>
                         <button onClick={() => dispatch(increment(3))} >+</button>
