@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ErrCard from '../ErrorCards/ErrCard';
 import ErrPane from './ErrPane';
-import { addData } from '../../actions/index'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { cardsLoaded } from '../../actions/actions';
+import store from '../../store';
 
 
-const Body = ({ addData, data }) => {
-    
-    const generateCards = () => {
+const Body = () => {
+    store.dispatch(cardsLoaded())
 
-        for(let obj of data) {
-            console.log(obj)
-        }
-        return ''
-    }
+    const errCardData = useSelector(state=> 
+        state.errCards)
+
+    console.log(errCardData)
     return (
         <React.Fragment>
-            {window.onload = addData}
             <ErrPane>
-                {generateCards()}
+                { errCardData.map(errData => <ErrCard{...errData}></ErrCard>)}
             </ErrPane>
 
 
@@ -27,12 +25,5 @@ const Body = ({ addData, data }) => {
     )
 }
 
-const mapStateToProps = (state) => ({ data: state.data })
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addData: () => dispatch(addData)
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Body);
+export default Body;

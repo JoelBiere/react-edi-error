@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const ErrCard = () => {
+const ErrCard = (props) => {
     return (
         <Card>
             
@@ -9,19 +9,19 @@ const ErrCard = () => {
             </DepartmentLabel>
 
             <Date>
-                8.23.2021
+                {props.errorDate}
             </Date>
 
             <ErrID>
-                103444
+                {props.errorID}
             </ErrID>
 
             <CompanyLabel>
-                FedEx
+                {props.customerCode}
             </CompanyLabel>
 
             <Price>
-                $10000
+                {props.price}
             </Price>
         </Card>
 
