@@ -34,13 +34,14 @@ const Card = styled.div`
     display: grid;
     margin: 10px;
     border: 2px solid white;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 #f3eeeefd;
     transition: 0.3s;
     cursor: pointer;
     &:hover {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 px 16px 0 #ffffff;
     }
-    background: lightgray;
+
+    background: #f1faee;
     text-align: center;
     grid-template-areas:
     "dptLabel dptLabel date"
@@ -50,27 +51,25 @@ const Card = styled.div`
 `
 const DepartmentLabel = styled.div`
     grid-area: dptLabel;
-    background: lightgreen;
+    background: lightblue;
 `
 const ErrID = styled.div`
     grid-area: err;
     font-size: large;
-    background-color: lightcyan;
 `
 const Date = styled.div`
     color: black;
     grid-area: date;
-    background: lightblue;
 `
 
 const Price = styled.div`
     grid-area: price;
-    background: #ee4a35;
+    color: #e63946;
+
 `
 
 const CompanyLabel = styled.div`
     grid-area: company;
-    background: lightsalmon;
 `
 
 export default ErrCard
