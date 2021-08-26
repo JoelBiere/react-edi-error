@@ -24,3 +24,11 @@ export const detailsRendered = () => {
         type: actions.DETAILS_RENDERED
     }
 }
+
+export const cardReassigned = (department, id) => {
+    return {
+        type: actions.CARD_REASSIGNED,
+        newDepartment: department,
+        payload: data.filter(obj => obj.errorID === id)
+    }
+}

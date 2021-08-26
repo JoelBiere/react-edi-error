@@ -1,6 +1,6 @@
 .mainContainer{
     background: #F1FAEE;
-    padding: 20px
+    padding: 20px;
 }
 
 .bigSection {
@@ -33,9 +33,9 @@
 }
 
 .topButtons {
-    position: absolute;
     right: 20px;
-    top: 50px;
+    top: 8vh;
+    float: right;
 }
 
 li{

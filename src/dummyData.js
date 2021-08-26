@@ -1,3 +1,19 @@
+import * as department from './ImcDepartments'
+
+const departmentAssigner = () =>{
+    let num = Math.floor(Math.random() * 3)
+
+    // eslint-disable-next-line default-case
+    switch(num){
+        case(0):
+            return department.operations
+        case(1):
+            return department.ediTeam
+        case(2):
+            return department.accounting
+    }
+
+}
 
 const dummyData = (numOfData) =>{
     let returnData = []
@@ -8,18 +24,19 @@ const dummyData = (numOfData) =>{
                 errorID: i,
                 invoiceCode: `${i}${i+9}${i-3}${i}`,
                 errorDate: `${i}'s date`,
-                customer: `The ${i}'th company`,
+                customer: `${i} company`,
                 customerCode: `${i}${i+1}${i-4}${i}`,
                 imcCompany: `This is IMCCompany relating to ${i}`,
                 errMessage: `Err of ${i} had an error--fix plz!!`,
-                price: `$10,${i}00`
+                price: `$10,${i}00`,
+                department: departmentAssigner()
             }
         )
     }
     return returnData;
 }
 
-const data = dummyData(100);
+const data = dummyData(25);
 
 
 export default data;

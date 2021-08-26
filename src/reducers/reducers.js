@@ -15,6 +15,13 @@ export function cardsReducer(state = {}, action) {
                 ...state,
                 displayedCard: action.payload
             }
+        case(actions.CARD_REASSIGNED):
+            let currentCard = action.payload
+            console.log('this is the currentCard' + currentCard)
+            return {
+                ...state,
+                displayedCard: action.payload.department
+            }
             
         default:
             return state;

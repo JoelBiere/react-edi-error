@@ -1,6 +1,7 @@
 import React from 'react'
 import Body from './components/screens/Body'
 import Header from './components/screens/Header'
+import { Badge } from 'reactstrap'
 
 
 function App() {

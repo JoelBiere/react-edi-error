@@ -2,29 +2,32 @@ import styled from 'styled-components'
 import { cardSelected, detailsRendered } from '../../actions/actions'
 import store from '../../store'
 
+
 const ErrCard = (props) => {
 
     const handleCardSelect = () =>{
         store.dispatch(cardSelected(props.errorID))
         store.dispatch(detailsRendered())
     }
+
+    
     return (
         <Card onClick={handleCardSelect}>
             
-            <DepartmentLabel>
-                department
-            </DepartmentLabel>
+            <DepartmentSection>
+                {generateDepartmentLabel(props.department)}
+            </DepartmentSection>
 
             <Date>
                 {props.errorDate}
             </Date>
 
             <ErrID>
-                {props.errorID}
+                Error {props.errorID}
             </ErrID>
 
             <CompanyLabel>
-                {props.customerCode}
+                {props.customer}
             </CompanyLabel>
 
             <Price>
@@ -35,17 +38,29 @@ const ErrCard = (props) => {
     )
 }
 
+export const generateDepartmentLabel = (department) =>{
+    switch(department){
+        case("Operations"):
+            return <DepartmentLabel style = {{background:"#ce6b1a"}}>Operations</DepartmentLabel>
+        case("EDI Team"):
+            return <DepartmentLabel style = {{background:"#1d3557"}}>EDI Team</DepartmentLabel> 
+        case("Accounting"):
+            return <DepartmentLabel style = {{background:"#e63946"}}>Accounting</DepartmentLabel> 
+        default:
+            return <DepartmentLabel> {department} </DepartmentLabel>
+    }
+
+}
 
 
 const Card = styled.div`
     display: grid;
     margin: 10px;
-    border: 2px solid white;
-    box-shadow: 0 4px 8px 0 #f3eeeefd;
+    box-shadow: 0 4px 8px 0px #bbb7b7fc;
     transition: 0.3s;
     cursor: pointer;
     &:hover {
-        box-shadow: 0 px 16px 0 #ffffff;
+        box-shadow: 0 6px 16px #ffffff;
     }
 
     background: #f1faee;
@@ -56,9 +71,16 @@ const Card = styled.div`
     "company company price";
 
 `
-const DepartmentLabel = styled.div`
+const DepartmentSection = styled.div`
     grid-area: dptLabel;
-    background: lightblue;
+
+`
+const DepartmentLabel = styled.div`
+    background: #e76f51;
+    margin-left: 0px;
+    margin-top: 0px;
+    border: 2px solid white;
+    color: white;
 `
 const ErrID = styled.div`
     grid-area: err;
@@ -78,5 +100,4 @@ const Price = styled.div`
 const CompanyLabel = styled.div`
     grid-area: company;
 `
-
 export default ErrCard

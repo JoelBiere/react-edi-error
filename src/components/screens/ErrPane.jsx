@@ -8,7 +8,6 @@ const ErrPane = styled.div`
     max-width: 50vw;
     height: 89vh;
     margin: 10px;
-    padding: 5px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-template-rows: repeat(auto-fill, minmax(150px, 4vh));
