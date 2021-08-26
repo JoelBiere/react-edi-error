@@ -10,3 +10,17 @@ export const cardsLoaded = () => {
         payload: data
     }
 }
+
+
+export const cardSelected = (id) => {
+    return {
+        type: actions.CARD_SELECTED,
+        payload: data.filter(obj => obj.errorID === id )
+    }
+}
+
+export const detailsRendered = () => {
+    return {
+        type: actions.DETAILS_RENDERED
+    }
+}

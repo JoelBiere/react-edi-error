@@ -1,8 +1,15 @@
 import styled from 'styled-components'
+import { cardSelected, detailsRendered } from '../../actions/actions'
+import store from '../../store'
 
 const ErrCard = (props) => {
+
+    const handleCardSelect = () =>{
+        store.dispatch(cardSelected(props.errorID))
+        store.dispatch(detailsRendered())
+    }
     return (
-        <Card>
+        <Card onClick={handleCardSelect}>
             
             <DepartmentLabel>
                 department

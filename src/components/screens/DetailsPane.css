@@ -31,3 +31,13 @@
 .errMsg {
     color: #E63946;
 }
+
+.topButtons {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+}
+
+li{
+    margin: 10px 0;
+}
