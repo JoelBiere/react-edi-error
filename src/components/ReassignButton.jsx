@@ -9,9 +9,10 @@ const ReassignButton = (props) => {
 
     const toggle = () => setOpen(!dropdownOpen);
     
-    // const handleReassign = (updatedDepartment, id) =>{
-    //     store.dispatch(cardReassigned(updatedDepartment, id))
-    // }
+    const handleReassign = (updatedDepartment, id) =>{
+
+        store.dispatch(cardReassigned(updatedDepartment, id))
+    }
 
     const generateOtherItems = () => {
         let departments = {}
@@ -19,20 +20,22 @@ const ReassignButton = (props) => {
         let otherDepartments = []
         for(let key in departments) {
             if(departments.hasOwnProperty(key)){
-                if( department[key] !== props[0].department){
+                if( department[key] !== props.department){
                     otherDepartments.push(department[key])
                 }
             }
         }
-        return otherDepartments.map(otherItem => <DropdownItem>{otherItem}</DropdownItem>)
+        return otherDepartments.map(otherDepartment => <DropdownItem >{otherDepartment}</DropdownItem>)
+        //onClick={handleReassign(otherDepartment, props.errorID )}
     }
 
     return (
         <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} color="secondary">
             <DropdownToggle caret> reassign to </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem disabled> {props[0].department} </DropdownItem>
+                <DropdownItem disabled> {props.department} </DropdownItem>
                 {generateOtherItems()}
+                {/* <DropdownItem onClick={handleReassign("Accounting", props.errorID)}>Testing 123</DropdownItem> */}
             </DropdownMenu>
         </ButtonDropdown>
     )

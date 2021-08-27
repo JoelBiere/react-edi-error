@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { cardSelected, detailsRendered } from '../../actions/actions'
 import store from '../../store'
@@ -10,9 +11,11 @@ const ErrCard = (props) => {
         store.dispatch(detailsRendered())
     }
 
-    
-    return (
-        <Card onClick={handleCardSelect}>
+    const selectedCardID = useSelector(state => state.cardsReducer.cardChosenID)
+
+    if(selectedCardID === props.errorID){
+        return(
+             <SelectedCard onClick={handleCardSelect} >
             
             <DepartmentSection>
                 {generateDepartmentLabel(props.department)}
@@ -33,7 +36,35 @@ const ErrCard = (props) => {
             <Price>
                 {props.price}
             </Price>
-        </Card>
+        </SelectedCard>
+
+        )
+       
+
+    }
+    return (
+        <UnselectedCard onClick={handleCardSelect} >
+            
+            <DepartmentSection>
+                {generateDepartmentLabel(props.department)}
+            </DepartmentSection>
+
+            <Date>
+                {props.errorDate}
+            </Date>
+
+            <ErrID>
+                Error {props.errorID}
+            </ErrID>
+
+            <CompanyLabel>
+                {props.customer}
+            </CompanyLabel>
+
+            <Price>
+                {props.price}
+            </Price>
+        </UnselectedCard>
 
     )
 }
@@ -53,7 +84,7 @@ export const generateDepartmentLabel = (department) =>{
 }
 
 
-const Card = styled.div`
+const UnselectedCard = styled.div`
     display: grid;
     margin: 10px;
     box-shadow: 0 4px 8px 0px #bbb7b7fc;
@@ -71,6 +102,37 @@ const Card = styled.div`
     "company company price";
 
 `
+
+const SelectedCard = styled.div`
+    display: grid;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0px #bbb7b7fc;
+    transition: 0.3s;
+    animation-name: grow;
+    animation-fill-mode: forwards;
+    animation-duration: .3s;
+    @keyframes grow {
+        from { transform: scale(1);}
+        to { 
+            transform: scale(1.2);
+            background: #a8dadc;
+            font: large;
+        
+        }
+    }
+    
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 6px 16px #ffffff;
+    }
+
+    background: #f1faee;
+    text-align: center;
+    grid-template-areas:
+    "dptLabel dptLabel date"
+    "err err err"
+    "company company price";
+`
 const DepartmentSection = styled.div`
     grid-area: dptLabel;
 
@@ -87,7 +149,6 @@ const ErrID = styled.div`
     font-size: large;
 `
 const Date = styled.div`
-    color: black;
     grid-area: date;
 `
 

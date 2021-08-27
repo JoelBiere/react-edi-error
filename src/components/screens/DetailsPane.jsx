@@ -11,7 +11,7 @@ const DetailsPane = (props) => {
 
             <Container className='mainContainer'>
                 <Row xs="2">
-                    <Col> {generateDepartmentLabel(props[0].department)} </Col>
+                    <Col> {generateDepartmentLabel(props.department)} </Col>
                 </Row>
                 <Row>
                     <Col sm="12" md={{ size: 6, offset: 6 }}>
@@ -24,7 +24,7 @@ const DetailsPane = (props) => {
                 <Row className='bigSection'>
                     <CardBody>
                         <Card body className="text-center">
-                            <CardTitle tag="h2"> Error ID: <span style={{ color: "#E63946" }}> {props[0].errorID} </span> </CardTitle>
+                            <CardTitle tag="h2"> Error ID: <span style={{ color: "#E63946" }}> {props.errorID} </span> </CardTitle>
                         </Card>
                     </CardBody>
                 </Row>
@@ -32,23 +32,23 @@ const DetailsPane = (props) => {
 
                 <Row className='tableRow'>
                     <Col sm="4" className="leftCol">IMC Company</Col>
-                    <Col md="8" className="rightCol"> {props[0].imcCompany}</Col>
+                    <Col md="8" className="rightCol"> {props.imcCompany}</Col>
                 </Row>
                 <Row className='tableRow'>
                     <Col sm="4" className="leftCol"> Customer (EDI Code)</Col>
-                    <Col md="8" className="rightCol"> {`${props[0].customer} (${props[0].customerCode})`}</Col>
+                    <Col md="8" className="rightCol"> {`${props.customer} (${props.customerCode})`}</Col>
                 </Row>
                 <Row className="tableRow">
                     <Col sm="4" className="leftCol"> Invoice Code </Col>
-                    <Col md="8" className="rightCol"> {props[0].invoiceCode} </Col>
+                    <Col md="8" className="rightCol"> {props.invoiceCode} </Col>
                 </Row>
                 <Row className="tableRow">
                     <Col sm="4" className="leftCol"> Date Error Occurred </Col>
-                    <Col md="8" className="rightCol"> {props[0].errorDate} </Col>
+                    <Col md="8" className="rightCol"> {props.errorDate} </Col>
                 </Row>
                 <Row className="tableRow">
                     <Col sm="4" className="leftCol"> Generated Error Message </Col>
-                    <Col md="8" className="rightCol"> {props[0].errMessage} </Col>
+                    <Col md="8" className="rightCol"> {props.errMessage} </Col>
                 </Row>
                 <hr></hr>
 

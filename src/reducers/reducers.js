@@ -1,10 +1,14 @@
 import * as actions from '../actions/actionTypes'
 
-export function cardsReducer(state = {}, action) {
-    switch(action.type){
-        case(actions.CARD_RESOLVED):
-            return state
+const initialState = {
+    errCards: [],
+    displayedCard: {},
+    cardChosenID: undefined
 
+}
+
+export function cardsReducer(state = initialState, action) {
+    switch(action.type){
         case(actions.CARDS_LOADED):
             return {
                 ...state,
@@ -13,14 +17,15 @@ export function cardsReducer(state = {}, action) {
         case(actions.CARD_SELECTED):
             return {
                 ...state,
-                displayedCard: action.payload
+                displayedCard: action.payload,
+                cardChosenID: action.cardChosenID 
             }
         case(actions.CARD_REASSIGNED):
-            let currentCard = action.payload
-            console.log('this is the currentCard' + currentCard)
+            // let cardToReassign = action.payload
+            // cardToReassign[0].department = action.newDepartment 
+            
             return {
-                ...state,
-                displayedCard: action.payload.department
+                ...state
             }
             
         default:
@@ -31,7 +36,11 @@ export function cardsReducer(state = {}, action) {
 export function detailsReducer(state = false, action) {
     switch(action.type){
         case(actions.DETAILS_RENDERED):
-            return true
+            return{
+                ...state,
+            detailsShown:true
+
+            }
         default:
             return state
     }

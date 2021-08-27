@@ -15,7 +15,8 @@ export const cardsLoaded = () => {
 export const cardSelected = (id) => {
     return {
         type: actions.CARD_SELECTED,
-        payload: data.filter(obj => obj.errorID === id )
+        payload: data.find(obj => obj.errorID === id ),
+        cardChosenID: id
     }
 }
 
@@ -26,9 +27,13 @@ export const detailsRendered = () => {
 }
 
 export const cardReassigned = (department, id) => {
+    //find the card, update the department return data
+    let updated_card = data.find(element => element.errorID == id)
+    updated_card.department = department
+    console.log(updated_card)
+
     return {
         type: actions.CARD_REASSIGNED,
-        newDepartment: department,
-        payload: data.filter(obj => obj.errorID === id)
+        payload: data
     }
 }

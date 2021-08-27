@@ -12,10 +12,10 @@ import Placeholder from './Placeholder';
 
 const Body = () => {
     store.dispatch(cardsLoaded())
-
+    
     const errCardData = useSelector(state => state.cardsReducer.errCards)
 
-    const detailsRequested = useSelector(state => state.detailsReducer)
+    const detailsRequested = useSelector(state => state.detailsReducer.detailsShown)
    
     const cardChosen = useSelector(state => state.cardsReducer.displayedCard)
     
