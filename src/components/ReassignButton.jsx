@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { Button, ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import * as department from '../ImcDepartments'
 import store from '../store';
-import { cardReassigned } from '../actions/actions'
+import { cardReassigned, cardReassignedAlert } from '../actions/actions'
 
 const ReassignButton = (props) => {
     const [dropdownOpen, setOpen] = useState(false);
 
     const toggle = () => setOpen(!dropdownOpen);
     
-    const handleReassign = (updatedDepartment, id) =>{
-
-        store.dispatch(cardReassigned(updatedDepartment, id))
+    const handleReassign = (newDepartment) =>{
+        store.dispatch(cardReassigned( newDepartment, props.errorID))
+        store.dispatch(cardReassignedAlert(newDepartment, props.errorID, props.department))
     }
 
-    const generateOtherItems = () => {
+    const generateNotActiveDepartments = () => {
         let departments = {}
         Object.assign(departments, department)
         let otherDepartments = []
@@ -25,19 +25,20 @@ const ReassignButton = (props) => {
                 }
             }
         }
-        return otherDepartments.map(otherDepartment => <DropdownItem >{otherDepartment}</DropdownItem>)
-        //onClick={handleReassign(otherDepartment, props.errorID )}
+        return otherDepartments.map(otherDepartment => <DropdownItem onClick={() => handleReassign(otherDepartment)} >{otherDepartment}</DropdownItem>)
     }
 
     return (
+
         <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} color="secondary">
             <DropdownToggle caret> reassign to </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem disabled> {props.department} </DropdownItem>
-                {generateOtherItems()}
-                {/* <DropdownItem onClick={handleReassign("Accounting", props.errorID)}>Testing 123</DropdownItem> */}
+                {generateNotActiveDepartments()}
+                
             </DropdownMenu>
         </ButtonDropdown>
+        
     )
 
 }

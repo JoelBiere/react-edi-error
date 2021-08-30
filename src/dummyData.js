@@ -29,14 +29,15 @@ const dummyData = (numOfData) =>{
                 imcCompany: `This is IMCCompany relating to ${i}`,
                 errMessage: `Err of ${i} had an error--fix plz!!`,
                 price: `$10,${i}00`,
-                department: departmentAssigner()
+                department: departmentAssigner(),
+                isResolved: false
             }
         )
     }
     return returnData;
 }
 
-const data = dummyData(25);
+const data = dummyData(23);
 
 
 export default data;

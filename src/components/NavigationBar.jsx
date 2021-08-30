@@ -1,20 +1,19 @@
+import { default as React, useState } from 'react';
 import {
     Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem,
     NavLink,
     UncontrolledDropdown
 } from 'reactstrap';
 
-import React, { useState } from 'react';
 
 const NavigationBar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
-
     return (
         <div>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">IMC LOGO</NavbarBrand>
+                <NavbarBrand href="/"><img src="https://www.imcc.com/images/logo.png" alt="IMC LOGO"></img></NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
@@ -44,6 +43,11 @@ const NavigationBar = (props) => {
                     </Nav>
                     <NavbarText>Simple Text</NavbarText>
                 </Collapse>
+                {/* {alertShown ?
+                    <Alerts {...alertDetails} ></Alerts>
+                
+                :
+                null} */}
             </Navbar>
         </div>
     )

@@ -1,14 +1,23 @@
-import React from 'react';
-import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Container, Row, Badge } from 'reactstrap';
+import React, {useState} from 'react';
+import { Alert, Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Container, Row, Badge } from 'reactstrap';
 import ReassignButton from '../ReassignButton';
 import { generateDepartmentLabel } from '../ErrorCards/ErrCard';
 import './DetailsPane.css';
+import {cardResolved, cardResolvedAlert} from '../../actions/actions'
+import store from '../../store';
+
 
 const DetailsPane = (props) => {
+    
+
+    
+    const handleResolve = () => {
+        store.dispatch(cardResolved(props.errorID))
+        store.dispatch(cardResolvedAlert(props.errorID))
+    }
 
     return (
         <React.Fragment>
-
             <Container className='mainContainer'>
                 <Row xs="2">
                     <Col> {generateDepartmentLabel(props.department)} </Col>
@@ -16,7 +25,7 @@ const DetailsPane = (props) => {
                 <Row>
                     <Col sm="12" md={{ size: 6, offset: 6 }}>
                         <div className='topButtons'>
-                            <Button color="primary">mark as resolved</Button>{' '}
+                            <Button color="primary" onClick={handleResolve}>mark as resolved</Button>{' '}
                             <ReassignButton {...props}></ReassignButton>
                         </div>
                     </Col>

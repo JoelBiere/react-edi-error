@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import { cardsLoaded } from '../../actions/actions';
@@ -11,31 +11,45 @@ import Placeholder from './Placeholder';
 
 
 const Body = () => {
-    store.dispatch(cardsLoaded())
-    
+
+    useEffect(() => store.dispatch(cardsLoaded()), [])
+
     const errCardData = useSelector(state => state.cardsReducer.errCards)
 
-    const detailsRequested = useSelector(state => state.detailsReducer.detailsShown)
-   
+    const detailsRequested = useSelector(state => state.cardsReducer.detailsShown)
+
     const cardChosen = useSelector(state => state.cardsReducer.displayedCard)
-    
+
+
 
     return (
-        <Container fluid = {true}>
+        <Container fluid={true}>
+
             <Row>
-                <Col xs= "auto">
+                <Col xs="auto" style={{ background: "#cfd7dd" }}>
+                    <p >This is where the filter section will go</p>
+                    <hr></hr>
+                </Col>
+            </Row>
+
+
+
+            <Row>
+                <Col xs="auto" style={{ background: "#457b9d" }}>
+                   
+
                     <ErrPane>
                         {errCardData.map(errData => <ErrCard{...errData}></ErrCard>)}
                     </ErrPane>
                 </Col>
 
                 <Col>
-                { detailsRequested ? 
-                    <DetailsPane {...cardChosen} > </DetailsPane>
-                    :
-                    <Placeholder></Placeholder>
+                    {detailsRequested ?
+                        <DetailsPane {...cardChosen} > </DetailsPane>
+                        :
+                        <Placeholder></Placeholder>
                     }
-                    
+
                 </Col>
 
             </Row>
