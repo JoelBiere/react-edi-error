@@ -22,9 +22,9 @@ export const cardSelected = (id) => {
     }
 }
 
-export const detailsRendered = () => {
+export const detailsToggled= () => {
     return {
-        type: actions.DETAILS_RENDERED
+        type: actions.DETAILS_TOGGLED
     }
 }
 
@@ -51,6 +51,15 @@ export const cardResolved = (id) => {
     }
 }
 
+export const operatingCompanyChanged = (operatingCompany) => {
+
+    return {
+        type: actions.OPERATING_COMPANY_CHANGED,
+        payload: {
+            operatingCompany
+        }
+    }
+}
 //alerts
 export const dismissAlert = () => {
     return{

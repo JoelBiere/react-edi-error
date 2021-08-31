@@ -1,14 +1,19 @@
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { cardSelected, detailsRendered } from '../../actions/actions'
+import { cardSelected, detailsToggled } from '../../actions/actions'
 import store from '../../store'
 
 
 const ErrCard = (props) => {
+    
+    const detailsRequested = useSelector(state => state.cardsReducer.detailsShown)
 
     const handleCardSelect = () =>{
         store.dispatch(cardSelected(props.errorID))
-        store.dispatch(detailsRendered())
+        if(!detailsRequested){
+            store.dispatch(detailsToggled())
+        }
+        
     }
 
     const selectedCardID = useSelector(state => state.cardsReducer.cardChosenID)

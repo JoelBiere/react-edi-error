@@ -6,24 +6,25 @@ import { generateDepartmentLabel } from './ErrorCards/ErrCard'
 
 
 const Alerts = (props) => {
-    const handleDismiss = () => {
-        store.dispatch(dismissAlert())
-    }
+   
     switch (props.alertType) {
         case (alerts.RESOLVED_ALERT):
-            return <Alert color={props.color} style={{ fontSize: "larger", textAlign: "center" }} > Error {props.id} marked as "Resolved" <Button onClick={handleDismiss}>X</Button> </Alert>
+            return <Alert color={props.color}> Error {props.id} marked as "Resolved" <CloseButton /></Alert>
 
         case (alerts.REASSIGNED_ALERT):
-            return <Alert color={props.color} style={{ fontSize: "larger", textAlign: "center" }} >Error {props.id} was reassigned from  {generateDepartmentLabel(props.oldDepartment)} to {generateDepartmentLabel(props.newDepartment)}  <Button onClick={handleDismiss}>X</Button> </Alert>
+            return <Alert color={props.color}>Error {props.id} was reassigned from  {generateDepartmentLabel(props.oldDepartment)} to {generateDepartmentLabel(props.newDepartment)}  <CloseButton /> </Alert>
 
         default:
             return null
     }
-
-
-
-
-
 }
 
+const CloseButton = () => {
+    const handleDismiss = () => {
+        store.dispatch(dismissAlert())
+    }
+    return(
+        <Button style={{backgroundColor: "Transparent", border: 'none'}} close onClick={handleDismiss}></Button>
+    )
+}
 export default Alerts

@@ -1,32 +1,56 @@
 import * as department from './ImcDepartments'
+import * as imcc from './actions/imcOperatingCompanies'
 
-const departmentAssigner = () =>{
+const departmentAssigner = () => {
     let num = Math.floor(Math.random() * 3)
 
     // eslint-disable-next-line default-case
-    switch(num){
-        case(0):
+    switch (num) {
+        case (0):
             return department.operations
-        case(1):
+        case (1):
             return department.ediTeam
-        case(2):
+        case (2):
             return department.accounting
     }
 
 }
 
-const dummyData = (numOfData) =>{
+const operatingCompanyAssigner = () => {
+    let num = Math.floor(Math.random() * 7)
+
+    // eslint-disable-next-line default-case
+    switch (num) {
+        case (0):
+            return imcc.AIS
+        case (1):
+            return imcc.DNJ
+        case (2):
+            return imcc.GIS
+        case (3):
+            return imcc.HM
+        case (4):
+            return imcc.IMCG
+        case (5):
+            return imcc.OIS
+        case (6):
+            return imcc.PDS
+    }
+
+}
+
+const dummyData = (numOfData) => {
     let returnData = []
-    
-    for( let i = 0; i < numOfData; i++) {
+
+    for (let i = 0; i < numOfData; i++) {
         returnData.push(
             {
                 errorID: i,
-                invoiceCode: `${i}${i+9}${i-3}${i}`,
+                invoiceCode: `${i}${i + 9}${i - 3}${i}`,
                 errorDate: `${i}'s date`,
                 customer: `${i} company`,
-                customerCode: `${i}${i+1}${i-4}${i}`,
-                imcCompany: `This is IMCCompany relating to ${i}`,
+                customerCode: `${i}${i + 1}${i - 4}${i}`,
+                imcCompany: operatingCompanyAssigner(),
                 errMessage: `Err of ${i} had an error--fix plz!!`,
                 price: `$10,${i}00`,
                 department: departmentAssigner(),
@@ -37,7 +61,7 @@ const dummyData = (numOfData) =>{
     return returnData;
 }
 
-const data = dummyData(23);
+const data = dummyData(212);
 
 
 export default data;

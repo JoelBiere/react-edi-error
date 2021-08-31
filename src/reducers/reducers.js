@@ -1,7 +1,11 @@
 import * as actions from '../actions/actionTypes'
+import * as imcc from '../actions/imcOperatingCompanies'
 
 const initialState = {
-    errCards: [],
+    errData: [],
+    operatingCompany: imcc.ALL,
+    errCardsShowing: [],
+    includeResolved: false,
     displayedCard: {},
     cardChosenID: undefined,
     resolvedCards: [],
@@ -14,8 +18,9 @@ export function cardsReducer(state = initialState, action) {
         case (actions.CARDS_LOADED):
             return {
                 ...state,
-                errCards: action.payload.filter(obj => !obj.isResolved),
-                resolvedCards: action.payload.filter(obj => obj.isResolved)
+                errData: action.payload,
+                resolvedCards: action.payload.filter(obj => obj.isResolved),
+                errCardsShowing: action.payload.filter(obj => !obj.isResolved)
             }
         case (actions.CARD_SELECTED):
             return {
@@ -24,32 +29,42 @@ export function cardsReducer(state = initialState, action) {
                 cardChosenID: action.cardChosenID
             }
         case (actions.CARD_REASSIGNED):
-            let cardChanged = state.errCards.find(obj => obj.errorID == action.payload.idOfToReassign)
-            console.log(cardChanged)
             return {
                 ...state,
-                errCards: state.errCards.map(obj => obj.errorID !== action.payload.idOfToReassign ? obj : { ...obj, department: action.payload.newDepartment }),
-                displayedCard: { ...state.displayedCard, department: action.payload.newDepartment }
+                errData: state.errData.map(obj => obj.errorID !== action.payload.idOfToReassign ? obj : { ...obj, department: action.payload.newDepartment }),
+                displayedCard: { ...state.displayedCard, department: action.payload.newDepartment },
+                errCardsShowing: state.errCardsShowing.map(obj => obj.errorID !== action.payload.idOfToReassign ? obj : { ...obj, department: action.payload.newDepartment })
             }
 
-        case (actions.DETAILS_RENDERED):
+        case (actions.DETAILS_TOGGLED):
             return {
                 ...state,
-                detailsShown: true
+                detailsShown: !state.detailsShown
             }
 
         case (actions.CARD_RESOLVED):
 
-            let updatedSet = state.errCards.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : { ...obj, isResolved: true })
+            let updatedSet = state.errData.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : { ...obj, isResolved: true })
 
             return {
                 ...state,
                 resolvedCards: [...state.resolvedCards, updatedSet.find(obj => obj.isResolved)],
-                errCards: updatedSet.filter(obj => !obj.isResolved),
+                errData: updatedSet,
                 displayedCard: { ...state.displayedCard, isResolved: true },
-                detailsShown: false
+                detailsShown: false,
+                errCardsShowing: state.errCardsShowing.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : {...obj, isResolved: true})
             }
 
+        case (actions.OPERATING_COMPANY_CHANGED):
+            
+            return {
+                ...state,
+                errCardsShowing: action.payload.operatingCompany !== imcc.ALL ? state.errData.filter(obj => obj.imcCompany === action.payload.operatingCompany) : state.errData,
+                operatingCompany: action.payload.operatingCompany,
+                cardChosenID: undefined,
+                displayedCard: {},
+                detailsShown: false
+            }
 
 
         default:

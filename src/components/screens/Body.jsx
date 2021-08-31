@@ -3,18 +3,20 @@ import { useSelector } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import { cardsLoaded } from '../../actions/actions';
 import store from '../../store';
-import ErrCard from '../ErrorCards/ErrCard';
+
 import Footer from '../Footer';
 import DetailsPane from './DetailsPane';
-import ErrPane from './ErrPane';
+
 import Placeholder from './Placeholder';
+import FilterPane from './FilterPane'
+import TabBar from '../TabBar'
 
 
 const Body = () => {
 
     useEffect(() => store.dispatch(cardsLoaded()), [])
 
-    const errCardData = useSelector(state => state.cardsReducer.errCards)
+
 
     const detailsRequested = useSelector(state => state.cardsReducer.detailsShown)
 
@@ -26,33 +28,31 @@ const Body = () => {
         <Container fluid={true}>
 
             <Row>
-                <Col xs="auto" style={{ background: "#cfd7dd" }}>
-                    <p >This is where the filter section will go</p>
-                    <hr></hr>
+                <Col xs="2" style={{ background:"#DEE2E6" }}>
+                    <FilterPane></FilterPane>
+                </Col>
+
+                <Col  >
+                    <TabBar></TabBar>
+                    
                 </Col>
             </Row>
-
-
-
+            
             <Row>
-                <Col xs="auto" style={{ background: "#457b9d" }}>
-                   
-
-                    <ErrPane>
-                        {errCardData.map(errData => <ErrCard{...errData}></ErrCard>)}
-                    </ErrPane>
+                <Col xs="2" style={{ background: "#15181a" }}>
+                    <p style={{color:'white'}}>Something could go here</p>
                 </Col>
-
-                <Col>
+                <Col >
                     {detailsRequested ?
                         <DetailsPane {...cardChosen} > </DetailsPane>
                         :
                         <Placeholder></Placeholder>
                     }
-
                 </Col>
-
             </Row>
+
+
+
 
             <Row>
                 <Footer>

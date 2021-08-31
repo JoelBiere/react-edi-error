@@ -7,7 +7,7 @@ export default store;
 
 //store design
 // {
-//     errCards: [],
+//     errData: [],
 //     displayedCard:{}
 //     resolvedCards: [],
 //     currentUser: {}

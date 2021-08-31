@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 
 const ErrPane = styled.div`
-    resize: horizontal;
+    resize: vertical;
     overflow: auto;
     background: #457b9d;
-    min-width: 220px;
-    max-width: 50vw;
-    height: 85vh;
-    margin: 10px;
+    height: 35vh;
+    min-height: 18vh;
+    max-height: 80vh;
+    width: 100%auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-template-rows: repeat(auto-fill, minmax(150px, 4vh));
