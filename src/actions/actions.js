@@ -17,8 +17,10 @@ export const cardsLoaded = () => {
 export const cardSelected = (id) => {
     return {
         type: actions.CARD_SELECTED,
-        payload: data.find(obj => obj.errorID === id ),
-        cardChosenID: id
+        payload: {
+            cardChosenID: id 
+        }
+        
     }
 }
 
@@ -60,6 +62,27 @@ export const operatingCompanyChanged = (operatingCompany) => {
         }
     }
 }
+
+export const showResolvedToggled = (checked) => {
+
+    return {
+        type: actions.SHOW_RESOLVED_TOGGLED,
+        payload: {
+            checked
+        }
+    }
+} 
+
+export const showUnresolvedToggled = (checked) => {
+
+    return {
+        type: actions.SHOW_UNRESOLVED_TOGGLED,
+        payload: {
+            checked
+        }
+    }
+} 
+
 //alerts
 export const dismissAlert = () => {
     return{

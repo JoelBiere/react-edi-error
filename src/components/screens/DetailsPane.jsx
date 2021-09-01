@@ -1,35 +1,45 @@
-import React, {useState} from 'react';
-import { Alert, Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Container, Row, Badge } from 'reactstrap';
-import ReassignButton from '../ReassignButton';
-import { generateDepartmentLabel } from '../ErrorCards/ErrCard';
-import './DetailsPane.css';
-import {cardResolved, cardResolvedAlert} from '../../actions/actions'
+import React from 'react';
+import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Col, Container, Row } from 'reactstrap';
+import { cardResolved, cardResolvedAlert } from '../../actions/actions';
 import store from '../../store';
-
+import { generateDepartmentLabel, Resolved } from '../ErrorCards/ErrCard';
+import ReassignButton from '../ReassignButton';
+import './DetailsPane.css';
+import {Result, Button as ResultButton} from 'antd';
 
 const DetailsPane = (props) => {
-    
 
-    
     const handleResolve = () => {
         store.dispatch(cardResolved(props.errorID))
         store.dispatch(cardResolvedAlert(props.errorID))
     }
-
+    const isResolved = props.isResolved
+    
     return (
         <React.Fragment>
             <Container className='mainContainer'>
-                <Row xs="2">
-                    <Col> {generateDepartmentLabel(props.department)} </Col>
-                </Row>
                 <Row>
-                    <Col sm="12" md={{ size: 6, offset: 6 }}>
+                    <Col xs="4"> {generateDepartmentLabel(props.department)} </Col>
+                </Row>
+                <Row >
+                    {isResolved ? 
+                    <Result 
+                    status= "success" 
+                    title="Error was resolved" 
+                    subTitle="Other information will go here" 
+                    extra={[
+                        <ResultButton type ="primary" key='unresolve'>Mark as Unresolved</ResultButton>
+                    ]}
+                    />
+                     : 
+                     <Col sm="12" md={{ size: 6, offset: 6 }}>
                         <div className='topButtons'>
-                            <Button color="primary" onClick={handleResolve}>mark as resolved</Button>{' '}
+                            <Button color="primary" onClick={handleResolve}>Mark as Resolved</Button>{' '}
                             <ReassignButton {...props}></ReassignButton>
                         </div>
-                    </Col>
+                    </Col> }
                 </Row>
+                
                 <Row className='bigSection'>
                     <CardBody>
                         <Card body className="text-center">

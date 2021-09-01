@@ -1,54 +1,30 @@
+import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { cardSelected, detailsToggled } from '../../actions/actions'
 import store from '../../store'
-
+import './ErrCard.css'
 
 const ErrCard = (props) => {
-    
+
     const detailsRequested = useSelector(state => state.cardsReducer.detailsShown)
 
-    const handleCardSelect = () =>{
+    const handleCardSelect = () => {
         store.dispatch(cardSelected(props.errorID))
-        if(!detailsRequested){
+        if (!detailsRequested) {
             store.dispatch(detailsToggled())
         }
-        
+
     }
 
     const selectedCardID = useSelector(state => state.cardsReducer.cardChosenID)
 
-    if(selectedCardID === props.errorID){
-        return(
-             <SelectedCard onClick={handleCardSelect} >
-            
-            <DepartmentSection>
-                {generateDepartmentLabel(props.department)}
-            </DepartmentSection>
+    const isResolved = props.isResolved
 
-            <Date>
-                {props.errorDate}
-            </Date>
 
-            <ErrID>
-                Error {props.errorID}
-            </ErrID>
 
-            <CompanyLabel>
-                {props.customer}
-            </CompanyLabel>
-
-            <Price>
-                {props.price}
-            </Price>
-        </SelectedCard>
-
-        )
-       
-
-    }
     return (
-        <UnselectedCard onClick={handleCardSelect} >
+        <div className={selectedCardID === props.errorID ? 'selected' : 'unselected'} onClick={handleCardSelect}>
             
             <DepartmentSection>
                 {generateDepartmentLabel(props.department)}
@@ -57,10 +33,19 @@ const ErrCard = (props) => {
             <Date>
                 {props.errorDate}
             </Date>
-
-            <ErrID>
-                Error {props.errorID}
-            </ErrID>
+            {
+                isResolved ?
+                    <Resolved>
+                        <ErrID style={{color:'black'}}>
+                            Error {props.errorID}
+                        </ErrID>
+                        Resolved
+                    </Resolved>
+                    :
+                    <ErrID>
+                        Error {props.errorID}
+                    </ErrID>
+            }
 
             <CompanyLabel>
                 {props.customer}
@@ -69,75 +54,27 @@ const ErrCard = (props) => {
             <Price>
                 {props.price}
             </Price>
-        </UnselectedCard>
+
+        </div>
 
     )
+
 }
 
-export const generateDepartmentLabel = (department) =>{
-    switch(department){
-        case("Operations"):
-            return <DepartmentLabel style = {{background:"#ce6b1a"}}>Operations</DepartmentLabel>
-        case("EDI Team"):
-            return <DepartmentLabel style = {{background:"#1d3557"}}>EDI Team</DepartmentLabel> 
-        case("Accounting"):
-            return <DepartmentLabel style = {{background:"#e63946"}}>Accounting</DepartmentLabel> 
+export const generateDepartmentLabel = (department) => {
+    switch (department) {
+        case ("Operations"):
+            return <DepartmentLabel style={{ background: "#ce6b1a" }}>Operations</DepartmentLabel>
+        case ("EDI Team"):
+            return <DepartmentLabel style={{ background: "#1d3557" }}>EDI Team</DepartmentLabel>
+        case ("Accounting"):
+            return <DepartmentLabel style={{ background: "#e63946" }}>Accounting</DepartmentLabel>
         default:
             return <DepartmentLabel> {department} </DepartmentLabel>
     }
 
 }
 
-
-const UnselectedCard = styled.div`
-    display: grid;
-    margin: 10px;
-    box-shadow: 0 4px 8px 0px #bbb7b7fc;
-    transition: 0.3s;
-    cursor: pointer;
-    &:hover {
-        box-shadow: 0 6px 16px #ffffff;
-    }
-
-    background: #f1faee;
-    text-align: center;
-    grid-template-areas:
-    "dptLabel dptLabel date"
-    "err err err"
-    "company company price";
-
-`
-
-const SelectedCard = styled.div`
-    display: grid;
-    margin: 10px;
-    box-shadow: 0 4px 8px 0px #bbb7b7fc;
-    transition: 0.3s;
-    animation-name: grow;
-    animation-fill-mode: forwards;
-    animation-duration: .3s;
-    @keyframes grow {
-        from { transform: scale(1);}
-        to { 
-            transform: scale(1.2);
-            background: #a8dadc;
-            font: large;
-        
-        }
-    }
-    
-    cursor: pointer;
-    &:hover {
-        box-shadow: 0 6px 16px #ffffff;
-    }
-
-    background: #f1faee;
-    text-align: center;
-    grid-template-areas:
-    "dptLabel dptLabel date"
-    "err err err"
-    "company company price";
-`
 const DepartmentSection = styled.div`
     grid-area: dptLabel;
 
@@ -161,9 +98,16 @@ const Date = styled.div`
 const Price = styled.div`
     grid-area: price;
     color: #e63946;
-
 `
-
+export const Resolved = styled.div`
+    background: #28A745;
+    font-family: serif;
+    color: #fdfdfd;
+    opacity: 70%;
+    text-align: center;
+    grid-area: err;
+    width: 100%;
+`
 const CompanyLabel = styled.div`
     grid-area: company;
 `

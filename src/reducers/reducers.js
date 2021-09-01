@@ -25,8 +25,8 @@ export function cardsReducer(state = initialState, action) {
         case (actions.CARD_SELECTED):
             return {
                 ...state,
-                displayedCard: action.payload,
-                cardChosenID: action.cardChosenID
+                displayedCard: state.errData.find(obj => obj.errorID === action.payload.cardChosenID),
+                cardChosenID: action.payload.cardChosenID
             }
         case (actions.CARD_REASSIGNED):
             return {
@@ -46,31 +46,94 @@ export function cardsReducer(state = initialState, action) {
 
             let updatedSet = state.errData.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : { ...obj, isResolved: true })
 
+            let showingCards;
+            let displayedCard;
+
+            if (state.includeResolved) {
+                showingCards = state.errCardsShowing.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : { ...obj, isResolved: true })
+                displayedCard = { ...state.displayedCard, isResolved: true }
+            }
+            else if (!state.includeResolved) {
+                showingCards = state.errCardsShowing.filter(obj => obj.errorID !== action.payload.idOfResolved)
+                displayedCard = undefined
+            }
+
             return {
                 ...state,
-                resolvedCards: [...state.resolvedCards, updatedSet.find(obj => obj.isResolved)],
+                resolvedCards: [...state.resolvedCards, updatedSet.find(obj => obj.errorID === action.payload.idOfResolved)],
                 errData: updatedSet,
-                displayedCard: { ...state.displayedCard, isResolved: true },
+                displayedCard: displayedCard,
                 detailsShown: false,
-                errCardsShowing: state.errCardsShowing.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : {...obj, isResolved: true})
+                errCardsShowing: showingCards
             }
 
         case (actions.OPERATING_COMPANY_CHANGED):
-            
+            let shownCards;
+
+            if (action.payload.operatingCompany !== imcc.ALL ) {
+                if(state.includeResolved){
+                    shownCards = state.errData.filter(obj => obj.imcCompany === action.payload.operatingCompany)
+                }
+                else{
+                    shownCards = state.errData.filter(obj => obj.imcCompany === action.payload.operatingCompany && !obj.isResolved)
+                }
+    
+            }
+            else if (state.includeResolved) {
+                shownCards = state.errData
+            }
+            else {
+                shownCards = state.errData.filter(obj => !obj.isResolved)
+            }
+
             return {
                 ...state,
-                errCardsShowing: action.payload.operatingCompany !== imcc.ALL ? state.errData.filter(obj => obj.imcCompany === action.payload.operatingCompany) : state.errData,
+                errCardsShowing: shownCards,
                 operatingCompany: action.payload.operatingCompany,
                 cardChosenID: undefined,
                 displayedCard: {},
                 detailsShown: false
             }
 
+        case (actions.SHOW_RESOLVED_TOGGLED):
+
+            let cardsShowing;
+
+            if (action.payload.checked) {
+                if (state.operatingCompany === imcc.ALL) {
+                    cardsShowing = state.errData
+                }
+
+                else {
+                    cardsShowing = state.errData.filter(obj => obj.imcCompany === state.operatingCompany)
+                }
+
+            }
+            else if (!action.payload.checked && state.operatingCompany === imcc.ALL) {
+                cardsShowing = state.errData.filter(obj => !obj.isResolved)
+            }
+            else if (!action.payload.checked) {
+                cardsShowing = state.errData.filter(obj => !obj.isResolved && obj.imcCompany === state.operatingCompany)
+            }
+
+
+            return {
+                ...state,
+                includeResolved: action.payload.checked,
+                errCardsShowing: cardsShowing
+            }
+
+        case (actions.SHOW_UNRESOLVED_TOGGLED):
+            return {
+                ...state,
+                includeResolved: action.payload.checked
+            }
 
         default:
             return state;
     }
 }
+
 
 let alertsInitialState = {
     isShown: false,
@@ -80,26 +143,28 @@ export function alertsReducer(state = alertsInitialState, action) {
     switch (action.type) {
         case (actions.card_resolved_alert):
             return {
-                ...state, 
+                ...state,
                 isShown: true,
-                details: { ...state.details, 
+                details: {
+                    ...state.details,
                     id: action.payload.id,
                     alertType: action.payload.alertType,
                     color: action.payload.color
                 }
             }
 
-        case(actions.dismiss_alert):
-            return{
+        case (actions.dismiss_alert):
+            return {
                 ...state,
                 isShown: false
             }
 
-        case(actions.card_reassigned_alert):
-            return{
+        case (actions.card_reassigned_alert):
+            return {
                 ...state,
                 isShown: true,
-                details: { ...state.details,
+                details: {
+                    ...state.details,
                     alertType: action.payload.alertType,
                     id: action.payload.id,
                     newDepartment: action.payload.newDepartment,

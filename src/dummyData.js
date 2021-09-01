@@ -61,7 +61,7 @@ const dummyData = (numOfData) => {
     return returnData;
 }
 
-const data = dummyData(212);
+const data = dummyData(40);
 
 
 export default data;

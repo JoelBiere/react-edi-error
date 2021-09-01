@@ -31,7 +31,7 @@ const ReassignButton = (props) => {
     return (
 
         <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} color="secondary">
-            <DropdownToggle caret> reassign to </DropdownToggle>
+            <DropdownToggle caret> Reassign to </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem disabled> {props.department} </DropdownItem>
                 {generateNotActiveDepartments()}

@@ -8,6 +8,7 @@ const ErrPane = styled.div`
     min-height: 18vh;
     max-height: 80vh;
     width: 100%auto;
+    min-width: 40px;
     margin-bottom: 10px;
     margin-top: 10px;
     display: grid;

@@ -10,6 +10,7 @@ import DetailsPane from './DetailsPane';
 import Placeholder from './Placeholder';
 import FilterPane from './FilterPane'
 import TabBar from '../TabBar'
+import AlternateTabBar from '../AlternateTabBar'
 
 
 const Body = () => {
@@ -27,13 +28,13 @@ const Body = () => {
     return (
         <Container fluid={true}>
 
-            <Row>
-                <Col xs="2" style={{ background:"#DEE2E6" }}>
+            <Row xs="7">
+                <Col xs='2' style={{ background:"#DEE2E6" }}>
                     <FilterPane></FilterPane>
                 </Col>
 
-                <Col  >
-                    <TabBar></TabBar>
+                <Col xs="10">
+                    <AlternateTabBar></AlternateTabBar>
                     
                 </Col>
             </Row>
