@@ -14,3 +14,8 @@
     color:black;
     font-size: large;
 }
+
+.tabItem img{
+    height: 6vh;
+    width: 8vw;
+}
