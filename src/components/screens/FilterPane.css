@@ -1,3 +1,44 @@
-input[type="checkbox"]{
+input[type="checkbox"] {
     border-radius: 3px;
 }
+
+.filterBox {
+    display: grid;
+    grid-template-areas: 
+    "header header header"
+    "switchLabel orderLabel orderLabel" 
+    "switch orderBy orderBy";
+
+    grid-template-columns: 40% 33% auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 0px;
+}
+
+.switch {
+    grid-area: switch;
+}
+
+.orderBy {
+    grid-area: orderBy;
+    width: fit-content;
+    height: 30px;
+    box-shadow: none;
+}
+
+.orderBy:active{
+    box-shadow: none;
+    background-color: #6C757D;
+}
+
+.header {
+    grid-area: header;
+}
+
+.switchLabel {
+    grid-area: switchLabel;
+}
+
+.orderLabel {
+    grid-area: orderLabel;
+}
+

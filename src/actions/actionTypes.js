@@ -5,7 +5,13 @@ export const CARD_REASSIGNED = "reassigned"
 export const DETAILS_TOGGLED = "detailsToggled";
 export const OPERATING_COMPANY_CHANGED ="operatingCompanyChanged"
 export const SHOW_RESOLVED_TOGGLED = "showResolvedToggled"
-export const SHOW_UNRESOLVED_TOGGLED = "showUnresolvedToggled"
+
+
+//Sort by
+
+export const SORTED_BY_DEPARTMENT = "sortedByDepartment";
+
+
 //Alerts
 export const card_resolved_alert = "cardResolvedAlert"
 export const dismiss_alert = "dismissAlert"

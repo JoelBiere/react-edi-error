@@ -73,16 +73,16 @@ export const showResolvedToggled = (checked) => {
     }
 } 
 
-export const showUnresolvedToggled = (checked) => {
+
+
+//sorting Actions
+
+export const sortedByDepartment = () => {
 
     return {
-        type: actions.SHOW_UNRESOLVED_TOGGLED,
-        payload: {
-            checked
-        }
+        type: actions.SORTED_BY_DEPARTMENT
     }
-} 
-
+}
 //alerts
 export const dismissAlert = () => {
     return{

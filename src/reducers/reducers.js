@@ -9,7 +9,14 @@ const initialState = {
     displayedCard: {},
     cardChosenID: undefined,
     resolvedCards: [],
-    detailsShown: false
+    detailsShown: false,
+    sortedBy: {
+        department: false,
+        date: false,
+        errID: false,
+        client: false,
+        invoiceAmount: false
+    }
 
 }
 
@@ -31,9 +38,9 @@ export function cardsReducer(state = initialState, action) {
         case (actions.CARD_REASSIGNED):
             return {
                 ...state,
-                errData: state.errData.map(obj => obj.errorID !== action.payload.idOfToReassign ? obj : { ...obj, department: action.payload.newDepartment }),
-                displayedCard: { ...state.displayedCard, department: action.payload.newDepartment },
-                errCardsShowing: state.errCardsShowing.map(obj => obj.errorID !== action.payload.idOfToReassign ? obj : { ...obj, department: action.payload.newDepartment })
+                errData: state.errData.map(obj => obj.errorID !== action.payload.idOfToReassign ? obj : {...obj, department: action.payload.newDepartment }),
+                displayedCard: {...state.displayedCard, department: action.payload.newDepartment },
+                errCardsShowing: state.errCardsShowing.map(obj => obj.errorID !== action.payload.idOfToReassign ? obj : {...obj, department: action.payload.newDepartment })
             }
 
         case (actions.DETAILS_TOGGLED):
@@ -44,16 +51,15 @@ export function cardsReducer(state = initialState, action) {
 
         case (actions.CARD_RESOLVED):
 
-            let updatedSet = state.errData.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : { ...obj, isResolved: true })
+            let updatedSet = state.errData.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : {...obj, isResolved: true })
 
             let showingCards;
             let displayedCard;
 
             if (state.includeResolved) {
-                showingCards = state.errCardsShowing.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : { ...obj, isResolved: true })
-                displayedCard = { ...state.displayedCard, isResolved: true }
-            }
-            else if (!state.includeResolved) {
+                showingCards = state.errCardsShowing.map(obj => obj.errorID !== action.payload.idOfResolved ? obj : {...obj, isResolved: true })
+                displayedCard = {...state.displayedCard, isResolved: true }
+            } else if (!state.includeResolved) {
                 showingCards = state.errCardsShowing.filter(obj => obj.errorID !== action.payload.idOfResolved)
                 displayedCard = undefined
             }
@@ -63,26 +69,23 @@ export function cardsReducer(state = initialState, action) {
                 resolvedCards: [...state.resolvedCards, updatedSet.find(obj => obj.errorID === action.payload.idOfResolved)],
                 errData: updatedSet,
                 displayedCard: displayedCard,
-                detailsShown: false,
+                detailsShown: state.includeResolved ? true : false,
                 errCardsShowing: showingCards
             }
 
         case (actions.OPERATING_COMPANY_CHANGED):
             let shownCards;
 
-            if (action.payload.operatingCompany !== imcc.ALL ) {
-                if(state.includeResolved){
+            if (action.payload.operatingCompany !== imcc.ALL) {
+                if (state.includeResolved) {
                     shownCards = state.errData.filter(obj => obj.imcCompany === action.payload.operatingCompany)
-                }
-                else{
+                } else {
                     shownCards = state.errData.filter(obj => obj.imcCompany === action.payload.operatingCompany && !obj.isResolved)
                 }
-    
-            }
-            else if (state.includeResolved) {
+
+            } else if (state.includeResolved) {
                 shownCards = state.errData
-            }
-            else {
+            } else {
                 shownCards = state.errData.filter(obj => !obj.isResolved)
             }
 
@@ -92,7 +95,8 @@ export function cardsReducer(state = initialState, action) {
                 operatingCompany: action.payload.operatingCompany,
                 cardChosenID: undefined,
                 displayedCard: {},
-                detailsShown: false
+                detailsShown: false,
+                sortedBy: initialState.sortedBy
             }
 
         case (actions.SHOW_RESOLVED_TOGGLED):
@@ -102,17 +106,13 @@ export function cardsReducer(state = initialState, action) {
             if (action.payload.checked) {
                 if (state.operatingCompany === imcc.ALL) {
                     cardsShowing = state.errData
-                }
-
-                else {
+                } else {
                     cardsShowing = state.errData.filter(obj => obj.imcCompany === state.operatingCompany)
                 }
 
-            }
-            else if (!action.payload.checked && state.operatingCompany === imcc.ALL) {
+            } else if (!action.payload.checked && state.operatingCompany === imcc.ALL) {
                 cardsShowing = state.errData.filter(obj => !obj.isResolved)
-            }
-            else if (!action.payload.checked) {
+            } else if (!action.payload.checked) {
                 cardsShowing = state.errData.filter(obj => !obj.isResolved && obj.imcCompany === state.operatingCompany)
             }
 
@@ -123,12 +123,16 @@ export function cardsReducer(state = initialState, action) {
                 errCardsShowing: cardsShowing
             }
 
-        case (actions.SHOW_UNRESOLVED_TOGGLED):
+
+            //Sorting cases
+        case (actions.SORTED_BY_DEPARTMENT):
+            const sortedByDepartment = state.errCardsShowing.sort( (a, b) => a.department > b.department ? 1 : a.department < b.department ? -1 : 0 ) 
+            
             return {
                 ...state,
-                includeResolved: action.payload.checked
+                errCardsShowing: sortedByDepartment.filter(obj => obj === obj),
+                sortedBy: {...state.sortedBy, department: true}
             }
-
         default:
             return state;
     }

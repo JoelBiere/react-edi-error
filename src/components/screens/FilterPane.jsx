@@ -1,45 +1,88 @@
-import React, {useState} from 'react'
-import { Row, Col, ButtonGroup, Button, Container, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap'
-import { Switch } from 'antd'
-import './FilterPane.css'
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { Divider, Radio, Switch } from 'antd';
 import 'antd/dist/antd.css';
+import React from 'react';
+import { Col, Row, Button, ButtonGroup, ButtonToolbar } from 'reactstrap';
+import { showResolvedToggled } from '../../actions/actions';
 import store from '../../store';
-import { showResolvedToggled, showUnresolvedToggled } from '../../actions/actions';
-
+import './FilterPane.css';
+import { useSelector } from 'react-redux';
+import { sortedByDepartment } from '../../actions/actions';
 
 const FilterPane = (props) => {
-    const [dropdownOpen, setOpen] = useState(false);
-    
-
     const toggleResolved = (checked) => {
         store.dispatch(showResolvedToggled(checked))
+    }
+
+    const radioStatus = useSelector(state => state.cardsReducer.sortedBy)
+    console.log(radioStatus)
+
+
+    const sortCards = (value) => {
+        console.log(value)
+        switch (value) {
+            case ('department'):
+                store.dispatch(sortedByDepartment())
+                break;
+            case ('errID'):
+                store.dispatch()
+                break;
+            case ('date'):
+                store.dispatch()
+                break;
+            case ('invoiceAmnt'):
+                store.dispatch()
+                break;
+            case ('client'):
+                store.dispatch()
+                break;
+            default:
+                return null
+
+        }
 
     }
-    const toggle = () => setOpen(!dropdownOpen);
 
     return (
-        <Container style={{paddingTop: '8px'}}>     
-            <Row>
-                <h6>Show</h6>
-                <hr></hr>
-                <ButtonGroup vertical>
-                    <span> <Switch onChange={toggleResolved}></Switch>    Resolved</span> 
-                    <br></br>
-                </ButtonGroup>
-            </Row>
-            <Row>
-                <span> <h6>Order by</h6>   </span>
-                <hr></hr>
-                <ButtonGroup vertical>
-                    <span> <Button outline color="primary"  active={false}></Button>  Department</span> 
-                    <span> <Button outline color="primary"  active={false}></Button>  Date</span>
-                    <span> <Button outline color="primary"  active={false}></Button>  Invoice Amount</span>
-                    <span> <Button outline color="primary"  active={false}></Button>  Client Company</span>    
-                </ButtonGroup>
-                
-            </Row>
+        <Row >
+            <Col xs="auto" className='filterBox' >
+                <h5 className='header'>Filters</h5>
 
-        </Container>
+                <Divider className='header' />
+
+                <h7 className="switchLabel"> Show Resolved </h7>
+
+                <Switch
+                    size='large'
+                    style={{ width: '20%', }}
+                    className='switch'
+                    onChange={toggleResolved}
+                    checked={useSelector(state => state.cardsReducer.includeResolved)}
+                    checkedChildren={<CheckOutlined />}
+                    unCheckedChildren={<CloseOutlined />}>
+                </Switch>
+
+
+
+
+                <h7 className='orderLabel'> Order By:</h7>
+                <ButtonToolbar>
+                    <ButtonGroup className='orderBy' size="sm" style={{ boxShadow: 'none' }}>
+                        <Button className="btn shadow-none" outline={!radioStatus.department} color="secondary" onClick={() => sortCards('department')}>Department </Button>
+                        <Button className="btn shadow-none" outline={!radioStatus.errID} color="secondary" onClick={() => sortCards('errID')}>ID</Button>
+                        <Button className="btn shadow-none" outline={!radioStatus.date} color="secondary" onClick={() => sortCards('date')}>Date</Button>
+                        <Button className="btn shadow-none" outline={!radioStatus.invoiceAmount} color="secondary" onClick={() => sortCards('invoiceAmnt')}>$$$</Button>
+                        <Button className="btn shadow-none" outline={!radioStatus.client} color="secondary" onClick={() => sortCards('client')}>Client</Button>
+                    </ButtonGroup>
+                </ButtonToolbar>
+            </Col>
+
+            <Col>
+            </Col>
+            <Col>Total Info</Col>
+            <Col>Activity</Col>
+        </Row>
+
     )
 }
 
