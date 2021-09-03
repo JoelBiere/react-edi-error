@@ -31,7 +31,7 @@ const ErrCard = (props) => {
             </DepartmentSection>
 
             <Date>
-                {props.errorDate}
+                {props.errorDate.toDateString()}
             </Date>
             {
                 isResolved ?
@@ -52,7 +52,7 @@ const ErrCard = (props) => {
             </CompanyLabel>
 
             <Price>
-                {props.price}
+                 $ {props.price}
             </Price>
 
         </div>
@@ -100,7 +100,7 @@ const Price = styled.div`
     color: #e63946;
 `
 export const Resolved = styled.div`
-    background: #28A745;
+    background: #5cb85c;
     font-family: serif;
     color: #fdfdfd;
     opacity: 70%;

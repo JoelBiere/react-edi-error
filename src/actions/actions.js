@@ -83,6 +83,38 @@ export const sortedByDepartment = () => {
         type: actions.SORTED_BY_DEPARTMENT
     }
 }
+
+export const sortedByErrorID = () => {
+
+    return {
+        type: actions.SORTED_BY_ERRORID
+    }
+}
+
+export const sortedByInvoiceAmount = () => {
+
+    return {
+        type: actions.SORTED_BY_INVOICEAMOUNT
+    }
+}
+
+export const sortedByMostRecent = () => {
+    return {
+        type: actions.SORTED_BY_MOST_RECENT
+    }
+}
+
+export const sortedByLeastRecent = () => {
+    return {
+        type: actions.SORTED_BY_LEAST_RECENT
+    }
+}
+
+export const sortedByClient = () => {
+    return{
+        type: actions.SORTED_BY_CLIENT
+    }
+}
 //alerts
 export const dismissAlert = () => {
     return{

@@ -47,12 +47,12 @@ const dummyData = (numOfData) => {
             {
                 errorID: i,
                 invoiceCode: `${i}${i + 9}${i - 3}${i}`,
-                errorDate: `${i}'s date`,
+                errorDate: new Date(1985 + i, 8, i),
                 customer: `${i} company`,
                 customerCode: `${i}${i + 1}${i - 4}${i}`,
                 imcCompany: operatingCompanyAssigner(),
                 errMessage: `Err of ${i} had an error--fix plz!!`,
-                price: `$10,${i}00`,
+                price: 10 * i - i*3 +2.40,
                 department: departmentAssigner(),
                 isResolved: false
             }
@@ -61,7 +61,7 @@ const dummyData = (numOfData) => {
     return returnData;
 }
 
-const data = dummyData(40);
+const data = dummyData(30);
 
 
 export default data;

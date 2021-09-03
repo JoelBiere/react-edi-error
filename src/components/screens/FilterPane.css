@@ -9,9 +9,9 @@ input[type="checkbox"] {
     "switchLabel orderLabel orderLabel" 
     "switch orderBy orderBy";
 
-    grid-template-columns: 40% 33% auto;
+    grid-template-columns: 30% 33% auto;
     grid-column-gap: 10px;
-    grid-row-gap: 0px;
+    
 }
 
 .switch {
@@ -32,6 +32,7 @@ input[type="checkbox"] {
 
 .header {
     grid-area: header;
+    
 }
 
 .switchLabel {
@@ -42,3 +43,29 @@ input[type="checkbox"] {
     grid-area: orderLabel;
 }
 
+.metricsBox {
+    
+    display: grid;
+    grid-template-areas: 
+    "spacer header header header header"
+    "spacer fact1 fact2 fact3 fact4" ;
+    grid-template-columns: 20% fit-content fit-content fit-content fit-content;
+    grid-column-gap: 20px;
+    grid-row-gap: 0px; 
+}
+.fact1{
+    grid-area: fact1;
+    
+}
+
+.fact2{
+    grid-area: fact2;
+}
+
+.fact3{
+    grid-area: fact3;
+}
+
+.fact4{
+    grid-area: fact4;
+}

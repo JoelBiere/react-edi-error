@@ -69,7 +69,7 @@ const DetailsPane = (props) => {
                         </Row>
                         <Row className="tableRow">
                             <Col sm="4" className="leftCol"> Date Error Occurred </Col>
-                            <Col md="8" className="rightCol"> {props.errorDate} </Col>
+                            <Col md="8" className="rightCol"> {props.errorDate.toLocaleString()} </Col>
                         </Row>
                         <Row className="tableRow">
                             <Col sm="4" className="leftCol"> Generated Error Message </Col>

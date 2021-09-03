@@ -10,7 +10,11 @@ export const SHOW_RESOLVED_TOGGLED = "showResolvedToggled"
 //Sort by
 
 export const SORTED_BY_DEPARTMENT = "sortedByDepartment";
-
+export const SORTED_BY_ERRORID = "sortedByErrorID";
+export const SORTED_BY_INVOICEAMOUNT ="sortedByInvoiceAmount";
+export const SORTED_BY_MOST_RECENT = "sortedByMostRecent"
+export const SORTED_BY_LEAST_RECENT = "sortedByLeastRecent"
+export const SORTED_BY_CLIENT = "sortedByClient"
 
 //Alerts
 export const card_resolved_alert = "cardResolvedAlert"
