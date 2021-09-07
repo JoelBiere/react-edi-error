@@ -43,11 +43,6 @@ const NavigationBar = (props) => {
                     </Nav>
                     <NavbarText>Simple Text</NavbarText>
                 </Collapse>
-                {/* {alertShown ?
-                    <Alerts {...alertDetails} ></Alerts>
-                
-                :
-                null} */}
             </Navbar>
         </div>
     )

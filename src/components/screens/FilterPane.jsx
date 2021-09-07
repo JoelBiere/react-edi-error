@@ -1,4 +1,4 @@
-import { CheckOutlined, ClockCircleOutlined, CloseOutlined, DollarOutlined, IssuesCloseOutlined, WarningOutlined } from '@ant-design/icons';
+import { CheckOutlined, ClockCircleOutlined, CloseOutlined, DollarOutlined, IssuesCloseOutlined, LoadingOutlined, WarningOutlined } from '@ant-design/icons';
 import { Divider, Statistic, Switch } from 'antd';
 import 'antd/dist/antd.css';
 import React, { useState } from 'react';
@@ -7,6 +7,7 @@ import { Button, ButtonDropdown, ButtonGroup, Col, DropdownItem, DropdownMenu, D
 import { showResolvedToggled, sortedByClient, sortedByDepartment, sortedByErrorID, sortedByInvoiceAmount, sortedByLeastRecent, sortedByMostRecent } from '../../actions/actions';
 import * as imcc from '../../actions/imcOperatingCompanies';
 import store from '../../store';
+import Activity from '../Activity';
 import './FilterPane.css';
 
 const FilterPane = () => {
@@ -19,9 +20,12 @@ const FilterPane = () => {
     const radioStatus = useSelector(state => state.cardsReducer.sortedBy)
     const errCardsShowing = useSelector(state => state.cardsReducer.errCardsShowing)
 
-    const findElapsedDays = () =>{
+    const findElapsedDays = () => {
         errCardsShowing.sort((a, b) => a.errorDate > b.errorDate ? 1 : a.errorDate < b.errorDate ? -1 : 0)
         let oldestError = errCardsShowing[0]
+        if (oldestError === undefined) {
+            return <LoadingOutlined />
+        }
         let end = oldestError.errorDate.getTime()
         let start = Date.now()
         let differenceInTime = end - start
@@ -167,7 +171,7 @@ const FilterPane = () => {
                     className="fact3"
                     title="Oldest Error"
                     value={findElapsedDays()}
-                    suffix= "days"
+                    suffix="days"
                     prefix={<ClockCircleOutlined />}
                 />
                 <Statistic
@@ -178,7 +182,14 @@ const FilterPane = () => {
                     valueStyle={{ color: 'red' }}
                 />
             </Col>
-            <Col>Activity</Col>
+
+            <Col className='activityBox'>
+                <h5 className="header">Activity</h5>
+
+                
+                <Activity className='content' />
+
+            </Col>
         </Row>
 
     )

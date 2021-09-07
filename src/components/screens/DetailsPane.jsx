@@ -14,10 +14,11 @@ const DetailsPane = (props) => {
         store.dispatch(cardResolvedAlert(props.errorID))
     }
     const isResolved = props.isResolved
-  
+
 
     return (
-        <React.Fragment>
+        <div>
+
             <Container className='mainContainer' >
 
                 <Row >
@@ -38,7 +39,7 @@ const DetailsPane = (props) => {
                             </div>
                         </Col>}
                 </Row>
-                
+
                 <Row className='bigSection' >
                     <CardBody>
                         <Card body className="text-center">
@@ -114,7 +115,7 @@ const DetailsPane = (props) => {
                 </Row>
 
             </Container>
-        </React.Fragment>
+        </div>
 
     )
 }

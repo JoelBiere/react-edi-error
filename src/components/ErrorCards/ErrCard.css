@@ -4,9 +4,13 @@
     box-shadow: 0 4px 8px 0px #bbb7b7fc;
     transition: 0.3s;
     cursor: pointer;
+    height: 120px;
     background: #f1faee;
     text-align: center;
-    grid-template-areas: "dptLabel dptLabel date" "err err err" "company company price";
+    grid-template-areas: 
+        "dptLabel dptLabel date" 
+        "err err err" 
+        "company company price";
 }
 
 .unselected:hover {
@@ -21,9 +25,13 @@
     animation-name: grow;
     animation-fill-mode: forwards;
     animation-duration: .3s;
+    height: 120px;
     background: #f1faee;
     text-align: center;
-    grid-template-areas: "dptLabel dptLabel date" "err err err" "company company price";
+    grid-template-areas: 
+        "dptLabel dptLabel date" 
+        "err err err" 
+        "company company price";
     cursor: pointer;
 }
 

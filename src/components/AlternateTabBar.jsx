@@ -12,7 +12,7 @@ import './AlternateTabBar.css'
 import FilterPane from './screens/FilterPane'
 import DetailsPane from './screens/DetailsPane';
 import Placeholder from './screens/Placeholder'
-
+import ResizePanel from "react-resize-panel"
 
 const { TabPane } = Tabs;
 
@@ -27,8 +27,8 @@ const AlternateTabBar = () => {
 
     }
     return (
-        <Col>
-            <Row>
+        <Col >
+            <Row >
                 <Tabs defaultActiveKey={imcc.ALL} onChange={toggle} className='tabs' tabPosition='left'>
                     <React.Fragment>
                         <TabPane onClick={() => { toggle(imcc.ALL); }} tab={<img src="https://www.imcc.com/images/logo.png" alt="All Companies" id='imcImage'></img>} key={imcc.ALL}>
@@ -76,25 +76,32 @@ const TabContents = () => {
 
     const cardChosen = useSelector(state => state.cardsReducer.displayedCard)
 
-    
+
 
 
     return (
-        <Row>
-            <Col  >
-                <FilterPane></FilterPane>
-                <ErrPane>
-                    {errCardsShowing.map(errData => <ErrCard{...errData}></ErrCard>)}
-                </ErrPane>
-                <Container >
-                    {detailsRequested ?
-                        <DetailsPane {...cardChosen} > </DetailsPane>
-                        :
-                        null
-                    }
+        <div>
+            <Container fluid = {true}>
+            <FilterPane {...errCardsShowing}></FilterPane>
+            </Container>
+            {/* <ResizePanel direction='n'> */}
+                <Container fluid = {true}>
+                    <ErrPane>
+                        {errCardsShowing.map(errData => <ErrCard{...errData}></ErrCard>)}
+                    </ErrPane>
                 </Container>
-            </Col>
-        </Row>
+            {/* </ResizePanel> */}
+
+
+            {detailsRequested ?
+                <DetailsPane {...cardChosen} > </DetailsPane>
+                :
+                null
+            }
+
+
+        </div>
+
     )
 }
 export default AlternateTabBar

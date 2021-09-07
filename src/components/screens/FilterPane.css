@@ -4,6 +4,7 @@ input[type="checkbox"] {
 
 .filterBox {
     display: grid;
+    height: 15vh;
     grid-template-areas: 
     "header header header"
     "switchLabel orderLabel orderLabel" 
@@ -11,6 +12,7 @@ input[type="checkbox"] {
 
     grid-template-columns: 30% 33% auto;
     grid-column-gap: 10px;
+    grid-row-gap: 0px; 
     
 }
 
@@ -32,6 +34,7 @@ input[type="checkbox"] {
 
 .header {
     grid-area: header;
+    height: 10px;
     
 }
 
@@ -46,6 +49,7 @@ input[type="checkbox"] {
 .metricsBox {
     
     display: grid;
+    height: 18vh;
     grid-template-areas: 
     "spacer header header header header"
     "spacer fact1 fact2 fact3 fact4" ;
@@ -68,4 +72,18 @@ input[type="checkbox"] {
 
 .fact4{
     grid-area: fact4;
+}
+
+.activityBox {
+    display: grid;
+    height: 18vh;
+    grid-template-areas:
+        "header header"
+        "content content";
+    grid-row-gap: 0px; 
+    
+}
+
+.content{
+    grid-area: 'content';
 }
